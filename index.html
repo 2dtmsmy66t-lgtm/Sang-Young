@@ -294,6 +294,7 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
         <li><a href="#works">납품실적</a></li>
         <li><a href="#recruit">채용</a></li>
         <li><a href="#location">오시는 길</a></li>
+        <li><a href="shop.html">온라인몰</a></li>
         <li><a href="#quote" class="nav-cta">견적문의</a></li>
       </ul>
     </nav>
@@ -820,7 +821,7 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
   }));
 
   /* ---------- 스크롤: 메뉴 강조 / 맨 위로 / 등장 효과 ---------- */
-  const links = $$('#nav a:not(.nav-cta)');
+  const links = $$('#nav a[href^="#"]:not(.nav-cta)');   // 페이지 안 섹션 링크만 (shop.html 제외)
   const secs = links.map(a => $(a.getAttribute('href')));
   const topBtn = $('#to-top');
   function onScroll(){
