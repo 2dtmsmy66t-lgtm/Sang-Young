@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상영산업(주) | 덕트·건축자재 금속 판제품 전문 제조</title>
+<meta name="description" content="1996년 설립, 천안 직산의 덕트·건축자재 구조용 금속 판제품 제조기업 상영산업(주)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --navy:#1B2A41; --navy-2:#24385A; --steel:#5C6B7A; --steel-l:#8A96A3;
+  --bg:#F4F6F8; --line:#DDE2E8; --orange:#F28C28; --orange-d:#D9741A; --white:#fff;
+  --header:72px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--header)}
+body{font-family:"Pretendard",-apple-system,"Malgun Gothic",sans-serif;color:var(--navy);background:var(--white);line-height:1.6;word-break:keep-all}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.container{width:min(1200px,92%);margin:0 auto}
+.ph{background:#FFF3E6;color:var(--orange-d);padding:0 4px;border-radius:2px;font-weight:600}
+
+/* Header */
+header{position:fixed;inset:0 0 auto 0;height:var(--header);background:rgba(27,42,65,.96);z-index:100;border-bottom:3px solid var(--orange)}
+header .container{display:flex;align-items:center;justify-content:space-between;height:100%}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:1.25rem;letter-spacing:-.02em}
+.logo-mark{width:34px;height:34px;background:var(--orange);display:grid;place-items:center;color:#fff;font-size:1rem;font-weight:900}
+.logo small{display:block;font-size:.68rem;font-weight:500;color:var(--steel-l);letter-spacing:.08em}
+nav ul{display:flex;gap:4px;list-style:none}
+nav a{display:block;padding:8px 12px;color:#C9D1D9;font-size:.95rem;font-weight:500;border-bottom:2px solid transparent;transition:.2s}
+nav a:hover{color:#fff}
+nav a.active{color:#fff;border-bottom-color:var(--orange)}
+nav a.nav-cta{background:var(--orange);color:#fff;margin-left:8px;border:none}
+nav a.nav-cta:hover{background:var(--orange-d)}
+.burger{display:none;background:none;border:none;width:40px;height:40px;position:relative}
+.burger span,.burger span::before,.burger span::after{position:absolute;left:8px;width:24px;height:2px;background:#fff;transition:.25s;content:""}
+.burger span{top:19px}.burger span::before{top:-8px;left:0}.burger span::after{top:8px;left:0}
+.burger.open span{background:transparent}
+.burger.open span::before{top:0;transform:rotate(45deg)}
+.burger.open span::after{top:0;transform:rotate(-45deg)}
+
+/* Hero */
+.hero{position:relative;height:100vh;min-height:560px;max-height:900px;overflow:hidden;background:var(--navy);margin-top:0}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.slide.active{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,23,38,.85) 0%,rgba(14,23,38,.45) 55%,rgba(14,23,38,.1) 100%);pointer-events:none}
+.hero-content{position:absolute;inset:0;z-index:2;display:flex;align-items:center}
+.hero-text{color:#fff;max-width:640px}
+.hero-tag{display:inline-block;background:var(--orange);font-size:.85rem;font-weight:700;padding:4px 12px;margin-bottom:20px;letter-spacing:.05em}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.25;font-weight:800;letter-spacing:-.03em;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{font-size:clamp(1rem,1.6vw,1.15rem);color:#D5DCE3;margin-bottom:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-weight:700;font-size:1rem;border:2px solid transparent;transition:.2s}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange-d)}
+.btn-ghost{border-color:#fff;color:#fff;margin-left:8px}
+.btn-ghost:hover{background:#fff;color:var(--navy)}
+.hero-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:52px;height:52px;background:rgba(27,42,65,.6);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:1.4rem;transition:.2s}
+.hero-arrow:hover{background:var(--orange);border-color:var(--orange)}
+.hero-arrow.prev{left:20px}.hero-arrow.next{right:20px}
+.dots{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px}
+.dots button{width:36px;height:4px;border:none;background:rgba(255,255,255,.4);transition:.3s}
+.dots button.active{background:var(--orange);width:56px}
+.slide-caption{position:absolute;bottom:32px;right:4%;z-index:3;color:#C9D1D9;font-size:.85rem}
+
+/* Sections */
+section{padding:100px 0}
+.sec-head{margin-bottom:52px}
+.sec-label{color:var(--orange);font-weight:700;font-size:.85rem;letter-spacing:.15em;margin-bottom:8px}
+.sec-title{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.3}
+.sec-desc{color:var(--steel);margin-top:12px;max-width:640px}
+.bg-gray{background:var(--bg)}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-big{display:flex;align-items:flex-end;gap:16px;margin-bottom:24px}
+.about-big strong{font-size:6rem;line-height:.9;font-weight:900;color:var(--orange);letter-spacing:-.05em}
+.about-big span{font-size:1.1rem;font-weight:700;color:var(--navy);padding-bottom:8px}
+.about-text p{color:var(--steel);margin-bottom:14px}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);border-top:2px solid var(--navy);margin-top:28px}
+.facts div{padding:14px 0;border-bottom:1px solid var(--line)}
+.facts dt{font-size:.8rem;color:var(--steel)}
+.facts dd{font-weight:700}
+.strengths{display:grid;gap:16px}
+.strength{display:flex;gap:20px;padding:26px;background:var(--bg);border-left:4px solid var(--navy);transition:.2s}
+.strength:hover{border-left-color:var(--orange);transform:translateX(4px)}
+.strength .num{font-size:1.6rem;font-weight:900;color:var(--orange);min-width:44px}
+.strength h3{font-size:1.1rem;margin-bottom:4px}
+.strength p{color:var(--steel);font-size:.95rem}
+
+/* Timeline */
+.timeline{position:relative;max-width:800px;margin:0 auto;padding-left:40px}
+.timeline::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;padding:0 0 40px 30px}
+.tl-item::before{content:"";position:absolute;left:-36px;top:6px;width:16px;height:16px;background:#fff;border:3px solid var(--navy)}
+.tl-item.key::before{background:var(--orange);border-color:var(--orange)}
+.tl-year{font-size:1.5rem;font-weight:800;color:var(--navy)}
+.tl-item.key .tl-year{color:var(--orange)}
+.tl-body{background:#fff;padding:16px 20px;margin-top:8px;border:1px solid var(--line)}
+.tl-body li{list-style:none;color:var(--steel)}
+.tl-body li::before{content:"— ";color:var(--steel-l)}
+
+/* Products */
+.tabs{display:flex;border-bottom:2px solid var(--line);margin-bottom:36px}
+.tab{background:none;border:none;padding:14px 32px;font-size:1.05rem;font-weight:700;color:var(--steel);position:relative}
+.tab.active{color:var(--navy)}
+.tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;background:var(--orange)}
+.tab-panel{display:none;grid-template-columns:repeat(4,1fr);gap:20px}
+.tab-panel.active{display:grid}
+.card{background:#fff;border:1px solid var(--line);cursor:pointer;transition:.2s;text-align:left;padding:0;display:flex;flex-direction:column}
+.card:hover{border-color:var(--orange);box-shadow:0 10px 28px rgba(27,42,65,.12);transform:translateY(-4px)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-bottom:1px solid var(--line)}
+.card-body{padding:18px 20px 22px}
+.card-cat{font-size:.75rem;color:var(--orange);font-weight:700;letter-spacing:.08em}
+.card h3{font-size:1.1rem;margin:4px 0 6px;color:var(--navy)}
+.card p{font-size:.9rem;color:var(--steel)}
+.card .more{display:inline-block;margin-top:12px;font-size:.85rem;font-weight:700;color:var(--navy)}
+.card:hover .more{color:var(--orange)}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(14,23,38,.7);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+.modal.open{display:flex}
+.modal-box{background:#fff;width:min(720px,100%);max-height:90vh;overflow:auto;position:relative;border-top:4px solid var(--orange);animation:pop .25s ease}
+@keyframes pop{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+.modal-close{position:absolute;top:12px;right:12px;width:40px;height:40px;background:var(--bg);border:none;font-size:1.3rem;color:var(--navy)}
+.modal-close:hover{background:var(--orange);color:#fff}
+.modal-inner{display:grid;grid-template-columns:240px 1fr}
+.modal-inner img{width:100%;height:100%;object-fit:cover;background:var(--bg)}
+.modal-info{padding:32px 28px}
+.modal-info h3{font-size:1.4rem;margin:4px 0 10px}
+.modal-info > p{color:var(--steel);margin-bottom:18px;font-size:.95rem}
+.spec{width:100%;border-collapse:collapse;font-size:.92rem}
+.spec th,.spec td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.spec th{width:84px;background:var(--bg);color:var(--navy);font-weight:700}
+.modal-info .btn{margin-top:20px;padding:12px 22px}
+
+/* Works */
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.work{background:#fff;border:1px solid var(--line)}
+.work-thumb{aspect-ratio:16/9;background:repeating-linear-gradient(45deg,#E7EBEF 0 12px,#EEF1F4 12px 24px);display:grid;place-items:center;color:var(--steel-l);font-weight:600;font-size:.9rem}
+.work-body{padding:18px 20px}
+.work-meta{display:flex;gap:8px;margin-bottom:6px}
+.badge{font-size:.72rem;font-weight:700;padding:2px 8px;background:var(--navy);color:#fff}
+.badge.o{background:var(--orange)}
+.work h3{font-size:1.02rem;margin-bottom:4px}
+.work p{font-size:.88rem;color:var(--steel)}
+
+/* Quote */
+.quote-wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:0;background:#fff;border:1px solid var(--line)}
+.quote-side{background:var(--navy);color:#fff;padding:44px 36px}
+.quote-side h3{font-size:1.5rem;margin-bottom:14px}
+.quote-side p{color:#C9D1D9;font-size:.95rem;margin-bottom:28px}
+.steps{list-style:none;counter-reset:s}
+.steps li{counter-increment:s;padding:12px 0 12px 44px;position:relative;border-top:1px solid rgba(255,255,255,.12);color:#E2E7EC}
+.steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:28px;height:28px;background:var(--orange);display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.contact-mini{margin-top:28px;font-size:.92rem;color:#C9D1D9}
+.contact-mini b{color:#fff}
+form{padding:44px 40px}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.f-full{grid-column:1/-1}
+label{display:block;font-size:.88rem;font-weight:700;margin-bottom:6px}
+label .req{color:var(--orange)}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid #C9D1D9;font:inherit;font-size:.95rem;color:var(--navy);background:#fff;transition:.2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,42,65,.1)}
+textarea{min-height:130px;resize:vertical}
+.field.err input,.field.err select,.field.err textarea{border-color:#D64545}
+.err-msg{display:none;color:#D64545;font-size:.8rem;margin-top:4px}
+.field.err .err-msg{display:block}
+.agree{display:flex;gap:8px;align-items:flex-start;font-size:.88rem;color:var(--steel);font-weight:500}
+.agree input{width:auto;margin-top:5px}
+.form-foot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:16px;flex-wrap:wrap}
+.form-foot small{color:var(--steel)}
+.done{display:none;padding:80px 40px;text-align:center}
+.done.show{display:block}
+.done .check{width:72px;height:72px;margin:0 auto 20px;background:var(--orange);color:#fff;display:grid;place-items:center;font-size:2rem;font-weight:900}
+.done h3{font-size:1.5rem;margin-bottom:8px}
+.done p{color:var(--steel);margin-bottom:24px}
+
+/* Recruit */
+.board{border-top:2px solid var(--navy)}
+.board-head,.post-row{display:grid;grid-template-columns:70px 1fr 120px 140px 90px;align-items:center;text-align:center}
+.board-head{background:var(--bg);font-weight:700;font-size:.9rem;padding:14px 0;border-bottom:1px solid var(--line)}
+.post-row{padding:18px 0;border-bottom:1px solid var(--line);cursor:pointer;background:#fff;width:100%;border-left:none;border-right:none;border-top:none;font:inherit;color:inherit}
+.post-row:hover{background:#FAFBFC}
+.post-row .title{text-align:left;font-weight:700;padding-left:12px}
+.post-row .title::after{content:" ▾";color:var(--steel-l)}
+.post-row[aria-expanded="true"] .title::after{content:" ▴"}
+.status{display:inline-block;font-size:.78rem;font-weight:700;padding:3px 10px;background:var(--orange);color:#fff}
+.post-detail{display:none;background:var(--bg);padding:32px 40px;border-bottom:1px solid var(--line)}
+.post-detail.open{display:block}
+.post-detail h4{font-size:1rem;margin:18px 0 8px;color:var(--navy)}
+.post-detail h4:first-child{margin-top:0}
+.post-detail ul{padding-left:20px;color:var(--steel)}
+.post-detail .btn{margin-top:24px;padding:11px 22px}
+.board-note{margin-top:16px;font-size:.88rem;color:var(--steel)}
+
+/* Location */
+.loc-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:28px}
+.map{min-height:380px;background:repeating-linear-gradient(0deg,#E7EBEF 0 1px,transparent 1px 40px),repeating-linear-gradient(90deg,#E7EBEF 0 1px,transparent 1px 40px),#F7F9FA;border:1px solid var(--line);position:relative;display:grid;place-items:center}
+.map-pin{text-align:center}
+.map-pin .pin{width:44px;height:44px;background:var(--orange);margin:0 auto 10px;transform:rotate(45deg);border-radius:50% 50% 50% 0;display:grid;place-items:center}
+.map-pin .pin::after{content:"";width:14px;height:14px;background:#fff;border-radius:50%}
+.map-pin p{font-weight:700;color:var(--navy)}
+.map-pin small{color:var(--steel)}
+.loc-info{display:grid;gap:14px;align-content:start}
+.loc-card{background:#fff;border:1px solid var(--line);padding:22px 24px}
+.loc-card h3{font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.loc-card h3::before{content:"";width:4px;height:16px;background:var(--orange)}
+.loc-card p,.loc-card li{color:var(--steel);font-size:.93rem}
+.loc-card ul{list-style:none}
+.copy-btn{margin-top:10px;background:var(--navy);color:#fff;border:none;padding:8px 14px;font-size:.85rem;font-weight:600}
+.copy-btn:hover{background:var(--orange)}
+
+/* CTA band */
+.cta-band{background:var(--orange);padding:56px 0;color:#fff}
+.cta-band .container{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta-band h2{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800}
+.cta-band .btn{background:var(--navy);color:#fff}
+.cta-band .btn:hover{background:#0E1726}
+
+/* Footer */
+footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
+.foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid #26354A}
+.foot-info p{margin-bottom:4px}
+.foot-info b{color:#C9D1D9;font-weight:600;margin-right:6px}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links a:hover{color:#fff}
+.copyright{padding-top:24px}
+
+/* Top button */
+.to-top{position:fixed;right:24px;bottom:24px;width:50px;height:50px;background:var(--navy);color:#fff;border:none;font-size:1.2rem;opacity:0;visibility:hidden;transition:.3s;z-index:90;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.to-top.show{opacity:1;visibility:visible}
+.to-top:hover{background:var(--orange)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* Responsive */
+@media (max-width:1024px){
+  .tab-panel{grid-template-columns:repeat(2,1fr)}
+  .works{grid-template-columns:repeat(2,1fr)}
+  .about-grid,.quote-wrap,.loc-grid{grid-template-columns:1fr}
+  nav a{padding:8px 9px;font-size:.9rem}
+}
+@media (max-width:860px){
+  .burger{display:block}
+  nav{position:fixed;top:var(--header);left:0;right:0;background:var(--navy);max-height:0;overflow:hidden;transition:max-height .35s ease}
+  nav.open{max-height:520px;border-bottom:3px solid var(--orange)}
+  nav ul{flex-direction:column;padding:8px 4%}
+  nav a{padding:14px 4px;border-bottom:1px solid #26354A;font-size:1rem}
+  nav a.active{border-bottom-color:#26354A;color:var(--orange)}
+  nav a.nav-cta{margin:12px 0;text-align:center}
+}
+@media (max-width:640px){
+  section{padding:72px 0}
+  .tab-panel,.works,.f-grid{grid-template-columns:1fr}
+  .tab{padding:12px 18px;flex:1}
+  .hero-arrow{width:40px;height:40px;font-size:1.1rem;top:auto;bottom:18px;transform:none}
+  .hero-arrow.prev{left:8px}.hero-arrow.next{right:8px}
+  .btn-ghost{margin:10px 0 0}
+  .hero .btn{width:100%;justify-content:center}
+  .slide-caption{display:none}
+  .about-big strong{font-size:4.5rem}
+  .modal-inner{grid-template-columns:1fr}
+  .modal-inner img{height:180px}
+  form{padding:28px 20px}
+  .quote-side{padding:32px 24px}
+  .board-head{display:none}
+  .post-row{grid-template-columns:1fr auto;text-align:left;padding:16px 12px;gap:4px}
+  .post-row .no,.post-row .date{display:none}
+  .post-row .title{padding-left:0;grid-column:1/-1}
+  .post-row .type{text-align:left;font-size:.85rem;color:var(--steel)}
+  .post-detail{padding:24px 20px}
+  .map{min-height:260px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a href="#home" class="logo" aria-label="상영산업 홈">
+      <span class="logo-mark">SY</span>
+      <span>상영산업(주)<small>SANGYOUNG INDUSTRY</small></span>
+    </a>
+    <nav id="nav" aria-label="주 메뉴">
+      <ul>
+        <li><a href="#about">회사소개</a></li>
+        <li><a href="#history">연혁</a></li>
+        <li><a href="#products">제품소개</a></li>
+        <li><a href="#works">납품실적</a></li>
+        <li><a href="#recruit">채용</a></li>
+        <li><a href="#location">오시는 길</a></li>
+        <li><a href="shop.html">온라인몰</a></li>
+        <li><a href="#quote" class="nav-cta">견적문의</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><span></span></button>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<section class="hero" id="home" style="padding:0" aria-roledescription="carousel" aria-label="메인 이미지">
+  <div class="slide active"><img src="https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-factory.svg'" alt="절곡기와 금속 판재가 놓인 판금 가공 공장 내부 일러스트"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1708705261211-b2a244a811dc?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-duct.svg'" alt="천장에 설치된 사각 덕트와 원형 스파이럴 덕트 설비 일러스트"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-construction.svg'" alt="타워크레인과 철골 구조물이 있는 건축 현장 일러스트"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1701788607416-f1b5dd5a09ec?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-products.svg'" alt="출고를 앞두고 적재된 원형·사각 덕트 완성품 일러스트"></div>
+
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-text">
+        <span class="hero-tag">SINCE 1996 · 천안 직산</span>
+        <h1>30년 판금 기술로<br>현장에 맞는 <em>덕트·건축자재</em>를 만듭니다</h1>
+        <p>구조용 금속 판제품 전문 제조기업 상영산업(주)입니다.<br>규격 제품부터 주문 제작까지, 도면만 보내주세요.</p>
+        <a href="#quote" class="btn btn-primary">견적문의 →</a>
+        <a href="#products" class="btn btn-ghost">제품 보기</a>
+      </div>
+    </div>
+  </div>
+
+  <button class="hero-arrow prev" aria-label="이전 슬라이드">‹</button>
+  <button class="hero-arrow next" aria-label="다음 슬라이드">›</button>
+  <div class="dots" role="tablist" aria-label="슬라이드 선택"></div>
+  <div class="slide-caption" id="caption">판금 가공 공장</div>
+</section>
+
+<!-- 2. ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-label">ABOUT US</p>
+      <h2 class="sec-title">한 장의 금속판에서<br>현장의 구조물까지</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="about-big"><strong>30</strong><span>년의 업력<br>1996 – 2026</span></div>
+        <p>상영산업(주)는 1996년 천안에서 설립되어 덕트(닥트)와 건축자재 등 구조용 금속 판제품 및 공작물을 제조해 온 기업입니다.</p>
+        <p>설계 도면 검토부터 절단·절곡·조립까지 한 곳에서 처리하여, 고객사가 원하는 규격의 제품을 안정적으로 공급합니다. <span class="ph">[회사 소개 문구 추가 입력]</span></p>
+        <dl class="facts">
+          <div><dt>회사명</dt><dd>상영산업(주)</dd></div>
+          <div><dt>대표이사</dt><dd>김태선</dd></div>
+          <div><dt>설립</dt><dd>1996년 7월</dd></div>
+          <div><dt>업종</dt><dd>구조용 금속 판제품 제조</dd></div>
+        </dl>
+      </div>
+      <div class="strengths">
+        <div class="strength reveal">
+          <span class="num">01</span>
+          <div><h3>30년 축적된 판금 노하우</h3><p>1996년부터 이어온 제조 경험으로 현장 조건에 맞는 가공 방법을 제안합니다.</p></div>
+        </div>
+        <div class="strength reveal">
+          <span class="num">02</span>
+          <div><h3>도면 기반 주문 제작</h3><p>표준 규격은 물론, 현장마다 다른 치수와 형상의 제품도 도면대로 제작합니다.</p></div>
+        </div>
+        <div class="strength reveal">
+          <span class="num">03</span>
+          <div><h3>수도권·충청권 접근성</h3><p>천안 직산에 위치해 수도권과 충청권 현장으로 빠르게 납품할 수 있습니다.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HISTORY -->
+<section id="history" class="bg-gray">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:center">
+      <p class="sec-label">HISTORY</p>
+      <h2 class="sec-title">상영산업이 걸어온 길</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-year"><span class="ph">[연도 입력]</span></div>
+        <ul class="tl-body"><li><span class="ph">[최근 주요 연혁 입력]</span></li></ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-year"><span class="ph">[연도 입력]</span></div>
+        <ul class="tl-body"><li><span class="ph">[설비 증설·인증 등 연혁 입력]</span></li></ul>
+      </div>
+      <div class="tl-item key reveal">
+        <div class="tl-year">2000</div>
+        <ul class="tl-body"><li>천안시 직산읍 마정리(현 금곡로 52-28)로 본사 이전</li></ul>
+      </div>
+      <div class="tl-item key reveal">
+        <div class="tl-year">1996</div>
+        <ul class="tl-body"><li>7월, 상영산업(주) 설립</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-label">PRODUCTS</p>
+      <h2 class="sec-title">제품소개</h2>
+      <p class="sec-desc">제품을 누르면 상세 사양을 확인할 수 있습니다. 표에 없는 규격도 도면에 맞춰 제작합니다.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="duct">덕트</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="build">건축자재</button>
+    </div>
+    <div class="tab-panel active" id="panel-duct" role="tabpanel"></div>
+    <div class="tab-panel" id="panel-build" role="tabpanel"></div>
+  </div>
+</section>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="modal-box">
+    <button class="modal-close" aria-label="닫기">✕</button>
+    <div class="modal-inner">
+      <img id="m-img" src="" alt="">
+      <div class="modal-info">
+        <span class="card-cat" id="m-cat"></span>
+        <h3 id="m-title"></h3>
+        <p id="m-desc"></p>
+        <table class="spec"><tbody id="m-spec"></tbody></table>
+        <a href="#quote" class="btn btn-primary" id="m-quote">이 제품 견적문의 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. WORKS -->
+<section id="works" class="bg-gray">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-label">REFERENCES</p>
+      <h2 class="sec-title">시공·납품 실적</h2>
+      <p class="sec-desc">상영산업 제품이 사용된 현장입니다.</p>
+    </div>
+    <div class="works" id="works-grid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="container">
+    <h2>도면이 있으신가요? 지금 바로 견적을 받아보세요.</h2>
+    <a href="#quote" class="btn">견적문의 바로가기 →</a>
+  </div>
+</div>
+
+<!-- 6. QUOTE -->
+<section id="quote">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-label">REQUEST A QUOTE</p>
+      <h2 class="sec-title">견적문의</h2>
+    </div>
+    <div class="quote-wrap reveal">
+      <aside class="quote-side">
+        <h3>견적은 이렇게 진행됩니다</h3>
+        <p>필요한 제품과 수량을 남겨주시면 담당자가 확인 후 연락드립니다.</p>
+        <ol class="steps">
+          <li>문의 접수 (도면 첨부 권장)</li>
+          <li>담당자 검토 및 사양 확인</li>
+          <li>견적서 발송</li>
+          <li>제작 및 납품</li>
+        </ol>
+        <div class="contact-mini">
+          <p><b>전화</b> <span class="ph">[전화번호 입력]</span></p>
+          <p><b>팩스</b> <span class="ph">[팩스번호 입력]</span></p>
+          <p><b>이메일</b> <span class="ph">[이메일 입력]</span></p>
+        </div>
+      </aside>
+      <div>
+        <form id="quote-form" novalidate>
+          <div class="f-grid">
+            <div class="field"><label for="f-company">회사명 <span class="req">*</span></label><input id="f-company" name="company" required><p class="err-msg">회사명을 입력해 주세요.</p></div>
+            <div class="field"><label for="f-name">담당자 <span class="req">*</span></label><input id="f-name" name="name" required><p class="err-msg">담당자 이름을 입력해 주세요.</p></div>
+            <div class="field"><label for="f-phone">연락처 <span class="req">*</span></label><input id="f-phone" name="phone" type="tel" placeholder="010-0000-0000" required><p class="err-msg">올바른 연락처를 입력해 주세요.</p></div>
+            <div class="field"><label for="f-email">이메일 <span class="req">*</span></label><input id="f-email" name="email" type="email" placeholder="example@company.com" required><p class="err-msg">올바른 이메일 주소를 입력해 주세요.</p></div>
+            <div class="field"><label for="f-product">제품 종류 <span class="req">*</span></label>
+              <select id="f-product" name="product" required><option value="">선택해 주세요</option></select>
+              <p class="err-msg">제품 종류를 선택해 주세요.</p></div>
+            <div class="field"><label for="f-qty">수량</label><input id="f-qty" name="qty" placeholder="예: 50EA, 120m"></div>
+            <div class="field f-full"><label for="f-msg">문의 내용 <span class="req">*</span></label><textarea id="f-msg" name="msg" placeholder="규격, 재질, 납기, 납품 현장 위치 등을 적어주세요." required></textarea><p class="err-msg">문의 내용을 입력해 주세요.</p></div>
+            <div class="field f-full"><label for="f-file">도면·사진 첨부</label><input id="f-file" name="file" type="file" accept=".pdf,.dwg,.dxf,.jpg,.jpeg,.png"><small style="color:var(--steel)">PDF, DWG, DXF, JPG, PNG</small></div>
+            <div class="field f-full"><label class="agree"><input type="checkbox" id="f-agree" required> 견적 회신을 위한 개인정보 수집·이용에 동의합니다. (필수)</label><p class="err-msg">개인정보 수집에 동의해 주세요.</p></div>
+          </div>
+          <div class="form-foot">
+            <small><span style="color:var(--orange)">*</span> 표시는 필수 항목입니다.</small>
+            <button type="submit" class="btn btn-primary">견적문의 보내기</button>
+          </div>
+        </form>
+        <div class="done" id="done">
+          <div class="check">✓</div>
+          <h3>견적문의가 접수되었습니다</h3>
+          <p id="done-msg">담당자가 확인 후 연락드리겠습니다.</p>
+          <button class="btn btn-primary" id="again">새 문의 작성</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. RECRUIT -->
+<section id="recruit" class="bg-gray">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-label">CAREERS</p>
+      <h2 class="sec-title">채용공고</h2>
+      <p class="sec-desc">상영산업과 함께 현장을 만들어갈 동료를 찾습니다.</p>
+    </div>
+    <div class="board reveal">
+      <div class="board-head"><span>번호</span><span>제목</span><span>고용형태</span><span>마감일</span><span>상태</span></div>
+      <button class="post-row" aria-expanded="false" aria-controls="post-1">
+        <span class="no">1</span>
+        <span class="title">판금·조립 생산직 모집</span>
+        <span class="type">정규직</span>
+        <span class="date"><span class="ph">[마감일]</span></span>
+        <span><span class="status">모집중</span></span>
+      </button>
+      <div class="post-detail" id="post-1">
+        <h4>모집 분야</h4>
+        <ul><li>판금·덕트·제관 작업</li><li>제품 조립</li></ul>
+        <h4>근무 조건</h4>
+        <ul><li>고용형태: 정규직</li><li>근무지: 충남 천안시 서북구 직산읍 금곡로 52-28</li><li>급여: <span class="ph">[급여 조건 입력]</span></li><li>근무시간: <span class="ph">[근무시간 입력]</span></li></ul>
+        <h4>자격 요건</h4>
+        <ul><li><span class="ph">[학력·경력 조건 입력]</span></li></ul>
+        <h4>제출 서류 및 접수 방법</h4>
+        <ul><li><span class="ph">[이력서 양식, 접수 이메일·방문 접수 안내 입력]</span></li></ul>
+        <a href="#location" class="btn btn-primary">회사 위치 확인</a>
+      </div>
+    </div>
+    <p class="board-note">※ 채용 관련 문의: <span class="ph">[담당 부서 / 전화번호 입력]</span></p>
+  </div>
+</section>
+
+<!-- 8. LOCATION -->
+<section id="location">
+  <div class="container">
+    <div class="sec-head reveal">
+      <p class="sec-label">LOCATION</p>
+      <h2 class="sec-title">오시는 길</h2>
+    </div>
+    <div class="loc-grid">
+      <div class="map reveal" role="img" aria-label="지도 영역 (추후 지도 삽입)">
+        <div class="map-pin">
+          <div class="pin"></div>
+          <p>상영산업(주)</p>
+          <small><span class="ph">[지도 API 또는 지도 이미지 삽입 영역]</span></small>
+        </div>
+      </div>
+      <div class="loc-info reveal">
+        <div class="loc-card">
+          <h3>주소</h3>
+          <p>(31028) 충남 천안시 서북구 직산읍 금곡로 52-28<br>지번: 직산읍 마정리 227-14</p>
+          <button class="copy-btn" id="copy-addr">주소 복사</button>
+        </div>
+        <div class="loc-card">
+          <h3>자가용</h3>
+          <p><span class="ph">[인근 IC·주요 도로에서 오는 길 입력]</span></p>
+        </div>
+        <div class="loc-card">
+          <h3>대중교통</h3>
+          <ul><li>지하철: <span class="ph">[가까운 역과 이동 방법 입력]</span></li><li>버스: <span class="ph">[버스 노선·정류장 입력]</span></li></ul>
+        </div>
+        <div class="loc-card">
+          <h3>문의</h3>
+          <p>전화 <span class="ph">[전화번호 입력]</span> · 팩스 <span class="ph">[팩스번호 입력]</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <a href="#home" class="logo" style="margin-bottom:16px"><span class="logo-mark">SY</span><span>상영산업(주)</span></a>
+        <div class="foot-info">
+          <p><b>대표이사</b>김태선 <b style="margin-left:12px">사업자등록번호</b><span class="ph">[사업자번호 입력]</span></p>
+          <p><b>주소</b>충남 천안시 서북구 직산읍 금곡로 52-28</p>
+          <p><b>TEL</b><span class="ph">[전화번호]</span> <b style="margin-left:12px">FAX</b><span class="ph">[팩스번호]</span> <b style="margin-left:12px">E-mail</b><span class="ph">[이메일]</span></p>
+        </div>
+      </div>
+      <div class="foot-links">
+        <a href="#about">회사소개</a><a href="#products">제품소개</a><a href="#quote">견적문의</a><a href="#recruit">채용</a><a href="#location">오시는 길</a>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year">2026</span> SANGYOUNG INDUSTRY CO., LTD. All rights reserved.</p>
+  </div>
+</footer>
+
+<button class="to-top" id="to-top" aria-label="맨 위로">↑</button>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+
+  /* ---------- 데이터 ---------- */
+  const P = '[입력 필요]';
+  const products = {
+    duct: [
+      { id:'rect', name:'사각 덕트', img:'p-rect-duct.svg', photo:'https://images.unsplash.com/photo-1697982947220-01b97bdec381?w=800&q=80&auto=format&fit=crop', desc:'공조·환기 설비의 주 배관으로 쓰이는 사각 단면 덕트입니다.',
+        spec:{ 재질:`[재질 입력 — 예: 아연도강판]`, 두께:'[두께 입력]', 규격:'[규격 입력] / 도면 맞춤 제작', 용도:'공조, 급·배기 설비' } },
+      { id:'spiral', name:'원형 스파이럴 덕트', img:'p-spiral-duct.svg', photo:'https://images.unsplash.com/photo-1574334292321-4844f63aefef?w=800&q=80&auto=format&fit=crop', desc:'나선형 접합으로 강도를 높인 원형 덕트입니다.',
+        spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[지름 범위 입력]', 용도:'환기, 배기 설비' } },
+      { id:'fitting', name:'엘보·티 피팅', img:'p-fitting.svg', photo:'https://images.unsplash.com/photo-1615309662243-70f6df917b59?w=800&q=80&auto=format&fit=crop', desc:'덕트의 방향 전환과 분기에 쓰이는 연결 부속입니다.',
+        spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력] / 도면 맞춤 제작', 용도:'덕트 방향 전환·분기' } },
+      { id:'damper', name:'댐퍼', img:'p-damper.svg', photo:'https://images.unsplash.com/photo-1558358235-a0a93f68a52c?w=800&q=80&auto=format&fit=crop', desc:'덕트 내부의 풍량을 조절하거나 차단하는 부품입니다.',
+        spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력]', 용도:'풍량 조절·차단' } }
+    ],
+    build: [
+      { id:'panel', name:'금속 판넬', img:'p-panel.svg', photo:'https://images.unsplash.com/photo-1691766248898-0934c00ea187?w=800&q=80&auto=format&fit=crop', desc:'건물 외장·내장 마감에 쓰이는 금속 판넬입니다.',
+        spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력]', 용도:'외벽·내벽 마감' } },
+      { id:'flashing', name:'후레싱', img:'p-flashing.svg', photo:'https://images.unsplash.com/photo-1673645652350-6a4c31c1c78f?w=800&q=80&auto=format&fit=crop', desc:'지붕·벽체의 이음부를 덮어 마감하는 절곡 부재입니다.',
+        spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력] / 현장 맞춤 절곡', 용도:'지붕·벽체 이음부 마감' } },
+      { id:'bracket', name:'철골 브래킷', img:'p-bracket.svg', photo:'https://images.unsplash.com/photo-1680052809761-b2a1192f35fd?w=800&q=80&auto=format&fit=crop', desc:'구조물과 설비를 고정하는 금속 브래킷입니다.',
+        spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력]', 용도:'구조물·설비 고정' } },
+      { id:'custom', name:'주문 제작 판금품', img:'p-custom.svg', photo:'https://images.unsplash.com/photo-1593106410288-caf65eca7c9d?w=800&q=80&auto=format&fit=crop', desc:'도면에 맞춰 절단·절곡·용접으로 제작하는 맞춤 공작물입니다.',
+        spec:{ 재질:'도면 지정 재질', 두께:'도면 지정', 규격:'도면 기준 제작', 용도:'현장별 맞춤 구조물' } }
+    ]
+  };
+  const catName = { duct:'DUCT · 덕트', build:'BUILDING · 건축자재' };
+
+  /* ---------- 히어로 슬라이더 ---------- */
+  const slides = $$('.slide');
+  const captions = ['판금 가공 공장','덕트 설비','건축 현장','완성 제품 적재'];
+  const dotsBox = $('.dots');
+  let cur = 0, timer;
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('role','tab');
+    b.setAttribute('aria-label', `${i+1}번 슬라이드`);
+    b.addEventListener('click', () => { go(i); restart(); });
+    dotsBox.appendChild(b);
+  });
+  const dots = $$('button', dotsBox);
+  function go(i){
+    slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
+    cur = (i + slides.length) % slides.length;
+    slides[cur].classList.add('active'); dots[cur].classList.add('active');
+    dots.forEach((d,k)=>d.setAttribute('aria-selected', k===cur));
+    $('#caption').textContent = captions[cur];
+  }
+  function restart(){ clearInterval(timer); timer = setInterval(() => go(cur+1), 5000); }
+  $('.hero-arrow.prev').addEventListener('click', () => { go(cur-1); restart(); });
+  $('.hero-arrow.next').addEventListener('click', () => { go(cur+1); restart(); });
+  go(0); restart();
+  document.addEventListener('visibilitychange', () => document.hidden ? clearInterval(timer) : restart());
+
+  /* ---------- 제품 카드 ---------- */
+  const select = $('#f-product');
+
+  // [12주차] DB 연동: 웹 서버(/api/products)에서 제품 목록을 받아 온다.
+  // 서버가 없는 곳(GitHub Pages)에서는 실패하므로, 위의 products 데이터로 대신 그린다.
+  fetch('/api/products')
+    .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
+    .then(rows => renderProducts(rowsToProducts(rows)))
+    .catch(() => renderProducts(products));
+
+  // DB 행(rows) → 화면용 { duct:[...], build:[...] } 모양으로 변환
+  function rowsToProducts(rows){
+    const v = x => x ?? P;   // DB의 NULL은 '[입력 필요]'로 표시
+    const out = { duct: [], build: [] };
+    rows.forEach(r => {
+      const cat = r.category === '덕트' ? 'duct' : 'build';
+      out[cat].push({
+        id: r.prod_id, name: r.name, img: r.img, photo: r.photo, desc: v(r.description),
+        spec: { 재질: v(r.material), 두께: v(r.thickness), 규격: v(r.size_spec), 용도: v(r.usage_desc) }
+      });
+    });
+    return out;
+  }
+
+  function renderProducts(products){
+  Object.entries(products).forEach(([cat, list]) => {
+    const panel = $('#panel-' + cat);
+    const og = document.createElement('optgroup');
+    og.label = cat === 'duct' ? '덕트' : '건축자재';
+    list.forEach(p => {
+      const card = document.createElement('button');
+      card.className = 'card';
+      card.innerHTML = `<img src="${p.photo || 'img/' + p.img}" alt="${p.name} 사진" onerror="this.onerror=null;this.src='img/${p.img}'">
+        <div class="card-body"><span class="card-cat">${catName[cat]}</span>
+        <h3>${p.name}</h3><p>${p.desc}</p><span class="more">상세 사양 보기 +</span></div>`;
+      card.addEventListener('click', () => openModal(p, cat));
+      panel.appendChild(card);
+      const o = document.createElement('option'); o.value = p.name; o.textContent = p.name; og.appendChild(o);
+    });
+    select.appendChild(og);
+  });
+  const etc = document.createElement('option'); etc.value='기타'; etc.textContent='기타 / 주문 제작 문의'; select.appendChild(etc);
+  }
+
+  $$('.tab').forEach(t => t.addEventListener('click', () => {
+    $$('.tab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+    $$('.tab-panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active'); t.setAttribute('aria-selected','true');
+    $('#panel-' + t.dataset.tab).classList.add('active');
+  }));
+
+  /* ---------- 모달 ---------- */
+  const modal = $('#modal');
+  let lastFocus, currentProduct;
+  const ph = v => v.replace(/\[([^\]]+)\]/g, '<span class="ph">[$1]</span>');
+  function openModal(p, cat){
+    lastFocus = document.activeElement; currentProduct = p.name;
+    $('#m-img').onerror = function(){ this.onerror = null; this.src = 'img/' + p.img; };
+    $('#m-img').src = p.photo || ('img/' + p.img); $('#m-img').alt = p.name + ' 사진';
+    $('#m-cat').textContent = catName[cat];
+    $('#m-title').textContent = p.name;
+    $('#m-desc').textContent = p.desc;
+    $('#m-spec').innerHTML = Object.entries(p.spec).map(([k,v]) => `<tr><th>${k}</th><td>${ph(v)}</td></tr>`).join('');
+    modal.classList.add('open'); document.body.style.overflow = 'hidden';
+    $('.modal-close').focus();
+  }
+  function closeModal(){
+    modal.classList.remove('open'); document.body.style.overflow = '';
+    lastFocus && lastFocus.focus();
+  }
+  $('.modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+  $('#m-quote').addEventListener('click', () => { select.value = currentProduct; closeModal(); });
+
+  /* ---------- 실적 ---------- */
+  // [12주차] DB 연동: /api/works 에서 실적을 받아 온다. 서버가 없으면(GitHub Pages) 자리표시자를 보여 준다.
+  const placeholderWorks = [
+    { tag:'덕트', o:false }, { tag:'건축자재', o:true }, { tag:'덕트', o:false },
+    { tag:'주문제작', o:true }, { tag:'덕트', o:false }, { tag:'건축자재', o:true }
+  ];
+  function renderPlaceholderWorks(){
+    $('#works-grid').innerHTML = placeholderWorks.map((w,i) => `
+    <article class="work">
+      <div class="work-thumb">[현장 사진 ${i+1}]</div>
+      <div class="work-body">
+        <div class="work-meta"><span class="badge ${w.o?'o':''}">${w.tag}</span><span class="badge" style="background:var(--steel)"><span>[연도]</span></span></div>
+        <h3><span class="ph">[실적 입력 — 현장명]</span></h3>
+        <p><span class="ph">[발주처 / 납품 품목 입력]</span></p>
+      </div>
+    </article>`).join('');
+  }
+  function renderWorks(rows){
+    $('#works-grid').innerHTML = rows.map((w,i) => `
+    <article class="work">
+      <div class="work-thumb" style="padding:0;overflow:hidden">
+        <img src="${w.photo}" alt="${w.title} 현장 사진" style="width:100%;height:100%;object-fit:cover"
+             onerror="this.replaceWith(document.createTextNode('[현장 사진 ${i+1}]'))">
+      </div>
+      <div class="work-body">
+        <div class="work-meta">
+          <span class="badge ${w.category === '덕트' ? '' : 'o'}">${w.category}</span>
+          <span class="badge" style="background:var(--steel)">${w.year}</span>
+          ${w.is_sample ? '<span class="badge" style="background:#8A96A3">예시</span>' : ''}
+        </div>
+        <h3>${w.title}</h3>
+        <p>${w.client} / ${w.items}</p>
+      </div>
+    </article>`).join('');
+  }
+  fetch('/api/works')
+    .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
+    .then(rows => rows.length ? renderWorks(rows) : renderPlaceholderWorks())
+    .catch(renderPlaceholderWorks);
+
+  /* ---------- 견적 폼 ---------- */
+  const form = $('#quote-form');
+  const rules = {
+    'f-company': v => v.trim().length > 0,
+    'f-name': v => v.trim().length > 0,
+    'f-phone': v => /^[0-9\-\s]{9,14}$/.test(v.trim()),
+    'f-email': v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+    'f-product': v => v !== '',
+    'f-msg': v => v.trim().length > 0
+  };
+  function check(id){
+    const el = $('#' + id); const ok = rules[id](el.value);
+    el.closest('.field').classList.toggle('err', !ok); return ok;
+  }
+  Object.keys(rules).forEach(id => $('#' + id).addEventListener('blur', () => check(id)));
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let ok = Object.keys(rules).map(check).every(Boolean);
+    const agree = $('#f-agree');
+    agree.closest('.field').classList.toggle('err', !agree.checked);
+    if (!agree.checked) ok = false;
+    if (!ok) { $('.field.err input, .field.err select, .field.err textarea', form)?.focus(); return; }
+    $('#done-msg').textContent = `${$('#f-company').value} ${$('#f-name').value}님, 담당자가 확인 후 연락드리겠습니다.`;
+    form.style.display = 'none'; $('#done').classList.add('show');
+  });
+  $('#again').addEventListener('click', () => {
+    form.reset(); $$('.field.err').forEach(f=>f.classList.remove('err'));
+    $('#done').classList.remove('show'); form.style.display = '';
+  });
+
+  /* ---------- 채용 게시판 ---------- */
+  $$('.post-row').forEach(row => row.addEventListener('click', () => {
+    const open = row.getAttribute('aria-expanded') === 'true';
+    row.setAttribute('aria-expanded', !open);
+    $('#' + row.getAttribute('aria-controls')).classList.toggle('open', !open);
+  }));
+
+  /* ---------- 주소 복사 ---------- */
+  $('#copy-addr').addEventListener('click', e => {
+    const t = '충남 천안시 서북구 직산읍 금곡로 52-28';
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+      .then(() => e.target.textContent = '복사됨 ✓')
+      .catch(() => e.target.textContent = t)
+      .finally(() => setTimeout(() => e.target.textContent = '주소 복사', 2000));
+  });
+
+  /* ---------- 모바일 메뉴 ---------- */
+  const burger = $('#burger'), nav = $('#nav');
+  burger.addEventListener('click', () => {
+    const o = nav.classList.toggle('open'); burger.classList.toggle('open', o);
+    burger.setAttribute('aria-expanded', o);
+  });
+  $$('#nav a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded', false);
+  }));
+
+  /* ---------- 스크롤: 메뉴 강조 / 맨 위로 / 등장 효과 ---------- */
+  const links = $$('#nav a[href^="#"]:not(.nav-cta)');   // 페이지 안 섹션 링크만 (shop.html 제외)
+  const secs = links.map(a => $(a.getAttribute('href')));
+  const topBtn = $('#to-top');
+  function onScroll(){
+    const y = window.scrollY + 120;
+    let idx = -1;
+    secs.forEach((s,i) => { if (s.offsetTop <= y) idx = i; });
+    links.forEach((a,i) => a.classList.toggle('active', i === idx));
+    topBtn.classList.toggle('show', window.scrollY > 500);
+  }
+  window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+  topBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  }), { threshold:.12 });
+  $$('.reveal').forEach(el => io.observe(el));
+
+  $('#year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

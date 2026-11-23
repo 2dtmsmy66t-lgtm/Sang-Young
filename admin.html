@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상영산업(주) 관리자 · 회원 관리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--navy:#1B2A41;--steel:#5C6B7A;--steel-l:#8A96A3;--bg:#F4F6F8;--line:#DDE2E8;--orange:#F28C28;--orange-d:#D9741A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Pretendard",-apple-system,"Malgun Gothic",sans-serif;color:var(--navy);background:var(--bg);line-height:1.5;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+button,input,select{font-family:inherit;font-size:.9rem}
+button{cursor:pointer}
+.container{width:min(1200px,94%);margin:0 auto}
+header{background:var(--navy);border-bottom:3px solid var(--orange)}
+header .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800}
+.logo-mark{width:32px;height:32px;background:var(--orange);display:grid;place-items:center;font-weight:900}
+.logo small{display:block;font-size:.66rem;font-weight:500;color:var(--steel-l);letter-spacing:.08em}
+.top{display:flex;gap:6px;align-items:center;color:#C9D1D9;font-size:.88rem}
+.top a,.top button{color:#C9D1D9;background:none;border:none;padding:6px 10px}
+.top a:hover,.top button:hover{color:#fff}
+main{padding:28px 0 70px}
+h1{font-size:1.5rem;margin-bottom:18px}
+h2{font-size:1.1rem;margin-bottom:12px}
+.panel{background:#fff;border:1px solid var(--line);padding:20px;margin-bottom:22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);padding:16px}
+.stat b{display:block;font-size:1.5rem;color:var(--orange)}
+.stat span{font-size:.82rem;color:var(--steel)}
+.toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.toolbar input,.toolbar select{padding:8px 10px;border:1px solid var(--line)}
+.toolbar input{flex:1;min-width:180px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:var(--bg);font-weight:700;color:var(--steel)}
+td input,td select{padding:5px 6px;border:1px solid var(--line)}
+td input[type=number]{width:90px}
+.save{background:var(--navy);color:#fff;border:none;padding:6px 12px}
+.save:hover{background:#24385A}
+.add{background:var(--orange);color:#fff;border:none;padding:8px 14px;font-weight:700}
+.badge{display:inline-block;padding:2px 8px;font-size:.72rem;font-weight:700;color:#fff;background:var(--steel)}
+.badge.o{background:var(--orange)}
+.muted{color:var(--steel);font-size:.88rem}
+.gate{background:#fff;border:1px solid var(--line);padding:40px;text-align:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;display:none;z-index:50}
+.toast.show{display:block}
+.toast.err{background:#C0392B}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="logo" href="index.html"><span class="logo-mark">SY</span><span>상영산업(주)<small>ADMIN</small></span></a>
+    <div class="top"><span id="who"></span><a href="shop.html">주문몰</a><a href="index.html">회사 홈</a><button id="btn-logout">로그아웃</button></div>
+  </div>
+</header>
+
+<main class="container">
+  <div id="gate" class="gate"><p class="muted">관리자 권한을 확인하는 중…</p></div>
+
+  <div id="app" style="display:none">
+    <h1>관리자 페이지</h1>
+
+    <!-- 요약 숫자: COUNT · SUM · GROUP BY -->
+    <div class="stats" id="stats"></div>
+
+    <!-- 회원 목록 · 검색 · 필터 · 등급 수정 -->
+    <section class="panel">
+      <h2>회원 관리</h2>
+      <div class="toolbar">
+        <input id="q" placeholder="이름 또는 이메일 검색">
+        <select id="grade-filter">
+          <option value="">전체 등급</option><option>WELCOME</option><option>SILVER</option><option>GOLD</option><option>VIP</option>
+        </select>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>이름</th><th>이메일</th><th>연락처</th><th>등급</th><th>포인트</th><th>역할</th><th>가입일</th><th></th></tr></thead>
+        <tbody id="members"></tbody>
+      </table></div>
+    </section>
+
+    <!-- 주문 목록 · 상태 변경 -->
+    <section class="panel">
+      <h2>주문 관리</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>주문번호</th><th>회원</th><th>상품</th><th>합계</th><th>주문일</th><th>상태</th></tr></thead>
+        <tbody id="orders"></tbody>
+      </table></div>
+    </section>
+
+    <!-- 상품 관리 (관리자만 INSERT · UPDATE 가능 — RLS 규칙) -->
+    <section class="panel">
+      <h2>상품 관리</h2>
+      <div class="toolbar">
+        <input id="p-name" placeholder="상품명">
+        <input id="p-cat" placeholder="분류 (예: 덕트)" style="flex:.6">
+        <input id="p-price" type="number" min="0" placeholder="가격" style="flex:.5">
+        <input id="p-stock" type="number" min="0" placeholder="재고" style="flex:.4">
+        <input id="p-img" placeholder="이미지 주소 (선택)">
+        <button class="add" id="p-add">상품 추가</button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ID</th><th>상품명</th><th>분류</th><th>가격</th><th>재고</th><th>이미지 주소</th><th>판매</th><th></th></tr></thead>
+        <tbody id="products"></tbody>
+      </table></div>
+    </section>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// 쇼핑몰과 같은 주소 · 공개 키
+const db = supabase.createClient(
+  'https://ixrwxxevqajvqnznznwv.supabase.co',
+  'sb_publishable_Dv4vCX4IuAx0aD4MKF2HMw_V6eWuIO5'
+);
+
+const $ = s => document.querySelector(s);
+const won = n => Number(n).toLocaleString('ko-KR') + '원';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(t, err){ const el = $('#toast'); el.textContent = t; el.className = 'toast show' + (err ? ' err' : ''); setTimeout(() => el.className = 'toast', 2500); }
+const GRADES = ['WELCOME', 'SILVER', 'GOLD', 'VIP'];
+const STATUS = ['결제완료', '배송중', '배송완료', '취소'];
+const opts = (list, cur) => list.map(v => `<option ${v === cur ? 'selected' : ''}>${v}</option>`).join('');
+
+let members = [];
+
+/* ---------- ① 관리자가 아니면 돌려보낸다 ---------- */
+async function start(){
+  const { data: { session } } = await db.auth.getSession();
+  if (!session) { alertAndGo('관리자 로그인이 필요합니다. 주문몰에서 로그인하세요.'); return; }
+  const { data: me } = await db.from('shop_profiles').select('*').eq('id', session.user.id).single();
+  if (!me || me.role !== 'admin') { alertAndGo('관리자만 들어올 수 있습니다.'); return; }
+  $('#who').textContent = (me.name || me.email) + ' (관리자)';
+  $('#gate').style.display = 'none'; $('#app').style.display = '';
+  await loadMembers(); loadOrders(); loadProducts();
+}
+function alertAndGo(t){
+  $('#gate').innerHTML = `<p>${esc(t)}</p><p class="muted" style="margin-top:8px">잠시 후 주문몰로 이동합니다…</p>`;
+  setTimeout(() => location.href = 'shop.html', 1800);
+}
+
+/* ---------- ② 회원 목록 · 검색 · 등급 필터 ---------- */
+async function loadMembers(){
+  const { data, error } = await db.from('shop_profiles').select('*').order('created_at', { ascending: false });
+  if (error) { toast(error.message, true); return; }
+  members = data; renderMembers(); renderStats();
+}
+function renderMembers(){
+  const q = $('#q').value.trim().toLowerCase(), g = $('#grade-filter').value;
+  const list = members.filter(m =>
+    (!q || (m.name || '').toLowerCase().includes(q) || (m.email || '').toLowerCase().includes(q)) && (!g || m.grade === g));
+  $('#members').innerHTML = list.length ? list.map(m => `
+    <tr data-id="${m.id}">
+      <td>${esc(m.name)}</td><td>${esc(m.email)}</td><td>${esc(m.phone)}</td>
+      <td><select class="m-grade">${opts(GRADES, m.grade)}</select></td>
+      <td><input class="m-points" type="number" min="0" value="${m.points}"></td>
+      <td><select class="m-role">${opts(['member', 'admin'], m.role)}</select></td>
+      <td>${new Date(m.created_at).toLocaleDateString('ko-KR')}</td>
+      <td><button class="save">저장</button></td>
+    </tr>`).join('') : '<tr><td colspan="8" class="muted">조건에 맞는 회원이 없습니다.</td></tr>';
+  $('#members').querySelectorAll('.save').forEach(b => b.onclick = () => saveMember(b.closest('tr')));
+}
+$('#q').oninput = renderMembers;
+$('#grade-filter').onchange = renderMembers;
+
+/* ---------- ③ 등급 · 포인트 · 역할 저장 → shop_admin_update_member 함수 ---------- */
+async function saveMember(tr){
+  const { error } = await db.rpc('shop_admin_update_member', {
+    p_user_id: tr.dataset.id,
+    p_grade:   tr.querySelector('.m-grade').value,
+    p_points:  Number(tr.querySelector('.m-points').value),
+    p_role:    tr.querySelector('.m-role').value
+  });
+  if (error) { toast('저장 실패: ' + error.message, true); return; }
+  toast('저장했습니다'); loadMembers();
+}
+
+/* ---------- 요약 숫자 ---------- */
+let orderSum = 0, orderCount = 0;
+function renderStats(){
+  const byGrade = GRADES.map(g => `${g} ${members.filter(m => m.grade === g).length}`).join(' · ');
+  $('#stats').innerHTML = `
+    <div class="stat"><b>${members.length}명</b><span>전체 회원</span></div>
+    <div class="stat"><b style="font-size:1rem;color:var(--navy)">${byGrade}</b><span>등급별 인원</span></div>
+    <div class="stat"><b>${orderCount}건</b><span>전체 주문</span></div>
+    <div class="stat"><b>${won(orderSum)}</b><span>주문 합계 (취소 제외)</span></div>`;
+}
+
+/* ---------- 주문 목록 · 상태 바꾸기 ---------- */
+async function loadOrders(){
+  const { data, error } = await db.from('shop_orders')
+    .select('id, user_id, total, status, created_at, shop_order_items(qty, shop_products(name))')
+    .order('created_at', { ascending: false });
+  if (error) { toast(error.message, true); return; }
+  orderCount = data.length;
+  orderSum = data.filter(o => o.status !== '취소').reduce((s, o) => s + o.total, 0);
+  renderStats();
+  const nameOf = id => { const m = members.find(x => x.id === id); return m ? (m.name || m.email) : '(알 수 없음)'; };
+  $('#orders').innerHTML = data.length ? data.map(o => `
+    <tr data-id="${o.id}">
+      <td>#${o.id}</td><td>${esc(nameOf(o.user_id))}</td>
+      <td>${o.shop_order_items.map(i => esc(i.shop_products?.name) + '×' + i.qty).join(', ')}</td>
+      <td>${won(o.total)}</td><td>${new Date(o.created_at).toLocaleString('ko-KR')}</td>
+      <td><select class="o-status">${opts(STATUS, o.status)}</select></td>
+    </tr>`).join('') : '<tr><td colspan="6" class="muted">아직 주문이 없습니다.</td></tr>';
+  $('#orders').querySelectorAll('.o-status').forEach(s => s.onchange = async () => {
+    const { error } = await db.from('shop_orders').update({ status: s.value }).eq('id', Number(s.closest('tr').dataset.id));
+    if (error) { toast('변경 실패: ' + error.message, true); return; }
+    toast('주문 상태를 바꿨습니다'); loadOrders();
+  });
+}
+
+/* ---------- 상품 관리 ---------- */
+async function loadProducts(){
+  const { data, error } = await db.from('shop_products').select('*').order('id');
+  if (error) { toast(error.message, true); return; }
+  $('#products').innerHTML = data.map(p => `
+    <tr data-id="${p.id}">
+      <td>${p.id}</td>
+      <td><input class="p-name" value="${esc(p.name)}"></td>
+      <td><input class="p-cat" value="${esc(p.category)}" style="width:90px"></td>
+      <td><input class="p-price" type="number" min="0" value="${p.price}"></td>
+      <td><input class="p-stock" type="number" min="0" value="${p.stock}"></td>
+      <td><input class="p-img" value="${esc(p.image_url)}" placeholder="https://…"></td>
+      <td><input class="p-active" type="checkbox" ${p.is_active ? 'checked' : ''}></td>
+      <td><button class="save">저장</button></td>
+    </tr>`).join('');
+  $('#products').querySelectorAll('.save').forEach(b => b.onclick = async () => {
+    const tr = b.closest('tr');
+    const { error } = await db.from('shop_products').update({
+      name: tr.querySelector('.p-name').value.trim(),
+      category: tr.querySelector('.p-cat').value.trim(),
+      price: Number(tr.querySelector('.p-price').value),
+      stock: Number(tr.querySelector('.p-stock').value),
+      image_url: tr.querySelector('.p-img').value.trim() || null,
+      is_active: tr.querySelector('.p-active').checked
+    }).eq('id', Number(tr.dataset.id));
+    if (error) { toast('저장 실패: ' + error.message, true); return; }
+    toast('상품을 저장했습니다'); loadProducts();
+  });
+}
+$('#p-add').onclick = async () => {
+  const row = {
+    name: $('#p-name').value.trim(), category: $('#p-cat').value.trim(),
+    price: Number($('#p-price').value), stock: Number($('#p-stock').value),
+    image_url: $('#p-img').value.trim() || null
+  };
+  if (!row.name || !row.category || $('#p-price').value === '') { toast('상품명 · 분류 · 가격을 입력하세요', true); return; }
+  const { error } = await db.from('shop_products').insert(row);
+  if (error) { toast('추가 실패: ' + error.message, true); return; }
+  ['#p-name', '#p-cat', '#p-price', '#p-stock', '#p-img'].forEach(s => $(s).value = '');
+  toast('상품을 추가했습니다'); loadProducts();
+};
+
+$('#btn-logout').onclick = async () => { await db.auth.signOut(); location.href = 'shop.html'; };
+
+start();
+</script>
+</body>
+</html>

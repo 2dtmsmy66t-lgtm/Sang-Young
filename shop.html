@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상영산업(주) 온라인 주문몰</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--navy:#1B2A41;--steel:#5C6B7A;--steel-l:#8A96A3;--bg:#F4F6F8;--line:#DDE2E8;--orange:#F28C28;--orange-d:#D9741A;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Pretendard",-apple-system,"Malgun Gothic",sans-serif;color:var(--navy);background:var(--bg);line-height:1.6;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.container{width:min(1200px,92%);margin:0 auto}
+header{background:var(--navy);border-bottom:3px solid var(--orange);position:sticky;top:0;z-index:50}
+header .container{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:1.15rem}
+.logo-mark{width:34px;height:34px;background:var(--orange);display:grid;place-items:center;font-weight:900}
+.logo small{display:block;font-size:.68rem;font-weight:500;color:var(--steel-l);letter-spacing:.08em}
+.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.top-actions a,.top-actions button{color:#C9D1D9;background:none;border:1px solid transparent;padding:7px 12px;font-size:.9rem}
+.top-actions a:hover,.top-actions button:hover{color:#fff}
+.top-actions .cta{background:var(--orange);color:#fff}
+.top-actions .cta:hover{background:var(--orange-d)}
+#who{color:#fff;font-size:.88rem}
+.badge{display:inline-block;padding:2px 8px;font-size:.72rem;font-weight:700;color:#fff;background:var(--steel)}
+.badge.o{background:var(--orange)}
+.hero{background:linear-gradient(90deg,rgba(27,42,65,.95),rgba(27,42,65,.7)),url("https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?w=1600&q=70&auto=format&fit=crop") center/cover;color:#fff;padding:48px 0}
+.hero h1{font-size:1.9rem;letter-spacing:-.02em}
+.hero p{color:#C9D1D9;margin-top:6px}
+main{padding:36px 0 80px}
+.layout{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+.sec-title{font-size:1.25rem;font-weight:800;margin-bottom:14px}
+.filters{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.filters button{border:1px solid var(--line);background:#fff;padding:6px 14px;font-size:.88rem}
+.filters button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column}
+.card .thumb{aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#E7EBEF 0 12px,#EEF1F4 12px 24px);display:grid;place-items:center;color:var(--steel-l);font-weight:600;overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+.card .body{padding:14px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card .cat{font-size:.75rem;color:var(--orange);font-weight:700}
+.card h3{font-size:1.02rem}
+.card .price{font-weight:800;font-size:1.1rem}
+.card .stock{font-size:.82rem;color:var(--steel)}
+.card button{margin-top:auto;background:var(--navy);color:#fff;border:none;padding:9px;font-weight:600}
+.card button:hover{background:#24385A}
+.card button:disabled{background:var(--steel-l);cursor:not-allowed}
+aside .box{background:#fff;border:1px solid var(--line);padding:18px;margin-bottom:18px}
+.cart-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.qty{display:flex;align-items:center;gap:4px}
+.qty button{width:26px;height:26px;border:1px solid var(--line);background:#fff}
+.total{display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem;margin:14px 0}
+.btn{width:100%;background:var(--orange);color:#fff;border:none;padding:12px;font-weight:700;font-size:1rem}
+.btn:hover{background:var(--orange-d)}
+.btn:disabled{background:var(--steel-l);cursor:not-allowed}
+.muted{color:var(--steel);font-size:.88rem}
+.order{border-bottom:1px solid var(--line);padding:10px 0;font-size:.88rem}
+.order:last-child{border-bottom:none}
+.order .head{display:flex;justify-content:space-between;font-weight:700}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(14,23,38,.6);display:none;place-items:center;z-index:100;padding:16px}
+.modal.open{display:grid}
+.modal-box{background:#fff;width:min(420px,100%);padding:26px;position:relative}
+.modal-box h2{font-size:1.2rem;margin-bottom:14px}
+.tabs{display:flex;margin-bottom:16px;border-bottom:2px solid var(--line)}
+.tabs button{flex:1;background:none;border:none;padding:10px;font-weight:700;color:var(--steel);border-bottom:2px solid transparent;margin-bottom:-2px}
+.tabs button.active{color:var(--navy);border-bottom-color:var(--orange)}
+label{display:block;font-size:.85rem;font-weight:600;margin:10px 0 4px}
+input{width:100%;padding:10px;border:1px solid var(--line);font-family:inherit;font-size:.95rem}
+input:focus{outline:2px solid var(--orange);border-color:transparent}
+.close{position:absolute;top:10px;right:12px;background:none;border:none;font-size:1.4rem;color:var(--steel)}
+.msg{margin-top:10px;font-size:.88rem;min-height:1.2em}
+.msg.err{color:#C0392B}.msg.ok{color:#1E8449}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;display:none;z-index:200}
+.toast.show{display:block}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="logo" href="index.html"><span class="logo-mark">SY</span><span>상영산업(주)<small>ONLINE ORDER</small></span></a>
+    <div class="top-actions">
+      <a href="index.html">회사 홈</a>
+      <span id="who"></span>
+      <a id="btn-admin" href="admin.html" style="display:none">관리자</a>
+      <button id="btn-login" class="cta">로그인 / 회원가입</button>
+      <button id="btn-logout" style="display:none">로그아웃</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>상영산업 온라인 주문몰</h1>
+    <p>회원 가입 후 자재를 담아 바로 주문하세요. 가입하면 3,000 포인트를 드립니다.</p>
+  </div>
+</section>
+
+<main class="container">
+  <div class="layout">
+    <section>
+      <h2 class="sec-title">상품</h2>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="grid"><p class="muted">상품을 불러오는 중…</p></div>
+    </section>
+
+    <aside>
+      <div class="box">
+        <h2 class="sec-title">장바구니</h2>
+        <div id="cart"><p class="muted">담긴 상품이 없습니다.</p></div>
+        <div class="total"><span>합계</span><span id="cart-total">0원</span></div>
+        <button class="btn" id="btn-order" disabled>주문하기</button>
+        <p class="msg" id="order-msg"></p>
+      </div>
+      <div class="box">
+        <h2 class="sec-title">내 주문</h2>
+        <div id="orders"><p class="muted">로그인하면 주문 내역이 보입니다.</p></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- 로그인 · 회원가입 창 -->
+<div class="modal" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+  <div class="modal-box">
+    <button class="close" id="auth-close" aria-label="닫기">×</button>
+    <h2 id="auth-title">회원 서비스</h2>
+    <div class="tabs">
+      <button class="active" data-mode="login">로그인</button>
+      <button data-mode="signup">회원가입</button>
+    </div>
+    <form id="auth-form">
+      <div id="signup-fields" style="display:none">
+        <label for="f-name">이름</label><input id="f-name" autocomplete="name">
+        <label for="f-phone">연락처</label><input id="f-phone" placeholder="010-0000-0000" autocomplete="tel">
+      </div>
+      <label for="f-email">이메일</label><input id="f-email" type="email" required autocomplete="email">
+      <label for="f-pw">비밀번호 (6자 이상)</label><input id="f-pw" type="password" minlength="6" required autocomplete="current-password">
+      <button class="btn" style="margin-top:16px" id="auth-submit">로그인</button>
+      <p class="msg" id="auth-msg"></p>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- 1) Supabase 와 대화하는 도구 불러오기 (강의안 23쪽) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// 2) 내 프로젝트 주소와 공개 키 — 공개 키(Publishable key)만 넣는다. Secret key 는 절대 넣지 않는다.
+const db = supabase.createClient(
+  'https://ixrwxxevqajvqnznznwv.supabase.co',
+  'sb_publishable_Dv4vCX4IuAx0aD4MKF2HMw_V6eWuIO5'
+);
+
+const $ = s => document.querySelector(s);
+const won = n => Number(n).toLocaleString('ko-KR') + '원';
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2500); }
+
+let products = [];       // shop_products 에서 읽어 온 상품
+let cart = {};           // { 상품id: 수량 }
+let user = null;         // 로그인한 계정
+let profile = null;      // shop_profiles 의 내 한 줄
+let currentCat = '전체';
+
+/* ---------- 상품 읽기: SELECT * FROM shop_products ---------- */
+async function loadProducts(){
+  const { data, error } = await db.from('shop_products').select('*').order('id');
+  if (error) { $('#grid').innerHTML = '<p class="msg err">상품을 불러오지 못했습니다: ' + esc(error.message) + '</p>'; return; }
+  products = data;
+  renderFilters(); renderProducts();
+}
+function renderFilters(){
+  const cats = ['전체', ...new Set(products.map(p => p.category))];
+  $('#filters').innerHTML = cats.map(c => `<button class="${c === currentCat ? 'active' : ''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  $('#filters').querySelectorAll('button').forEach(b => b.onclick = () => { currentCat = b.dataset.cat; renderFilters(); renderProducts(); });
+}
+function renderProducts(){
+  const list = products.filter(p => currentCat === '전체' || p.category === currentCat);
+  if (!list.length) { $('#grid').innerHTML = '<p class="muted">판매 중인 상품이 없습니다.</p>'; return; }
+  $('#grid').innerHTML = list.map(p => `
+    <article class="card">
+      <div class="thumb">${p.image_url ? `<img src="${esc(p.image_url)}" alt="${esc(p.name)}" onerror="this.remove()">` : '상품 이미지'}</div>
+      <div class="body">
+        <span class="cat">${esc(p.category)}${p.is_active ? '' : ' · 판매중지'}</span>
+        <h3>${esc(p.name)}</h3>
+        <span class="price">${won(p.price)}</span>
+        <span class="stock">재고 ${p.stock}개</span>
+        <button data-id="${p.id}" ${p.stock > 0 ? '' : 'disabled'}>${p.stock > 0 ? '장바구니 담기' : '품절'}</button>
+      </div>
+    </article>`).join('');
+  $('#grid').querySelectorAll('button[data-id]').forEach(b => b.onclick = () => addToCart(Number(b.dataset.id)));
+}
+
+/* ---------- 장바구니 (이 화면 안에서만) ---------- */
+function addToCart(id){
+  const p = products.find(x => x.id === id);
+  const now = cart[id] || 0;
+  if (now >= p.stock) { toast('재고보다 많이 담을 수 없습니다'); return; }
+  cart[id] = now + 1; renderCart(); toast(p.name + ' 을(를) 담았습니다');
+}
+function changeQty(id, d){
+  const p = products.find(x => x.id === id);
+  cart[id] = Math.min(p.stock, (cart[id] || 0) + d);
+  if (cart[id] <= 0) delete cart[id];
+  renderCart();
+}
+function cartTotal(){ return Object.entries(cart).reduce((s, [id, q]) => s + products.find(p => p.id === Number(id)).price * q, 0); }
+function renderCart(){
+  const ids = Object.keys(cart);
+  $('#cart').innerHTML = ids.length ? ids.map(id => {
+    const p = products.find(x => x.id === Number(id));
+    return `<div class="cart-row"><span>${esc(p.name)}<br><span class="muted">${won(p.price)}</span></span>
+      <span class="qty"><button data-id="${id}" data-d="-1">−</button>${cart[id]}<button data-id="${id}" data-d="1">+</button></span></div>`;
+  }).join('') : '<p class="muted">담긴 상품이 없습니다.</p>';
+  $('#cart').querySelectorAll('button').forEach(b => b.onclick = () => changeQty(Number(b.dataset.id), Number(b.dataset.d)));
+  $('#cart-total').textContent = won(cartTotal());
+  $('#btn-order').disabled = ids.length === 0;
+}
+
+/* ---------- 주문 넣기: INSERT INTO shop_orders / shop_order_items ---------- */
+$('#btn-order').onclick = async () => {
+  const msg = $('#order-msg'); msg.className = 'msg'; msg.textContent = '';
+  if (!user) { openAuth('login'); msg.className = 'msg err'; msg.textContent = '주문하려면 먼저 로그인하세요.'; return; }
+  $('#btn-order').disabled = true;
+  const total = cartTotal();
+  // ① 주문 한 건 — user_id 는 DB 가 auth.uid() 로 자동으로 채운다
+  const { data: order, error: e1 } = await db.from('shop_orders').insert({ total }).select().single();
+  if (e1) { msg.className = 'msg err'; msg.textContent = '주문 실패: ' + e1.message; $('#btn-order').disabled = false; return; }
+  // ② 주문에 담긴 상품들
+  const items = Object.entries(cart).map(([id, q]) => ({
+    order_id: order.id, product_id: Number(id), qty: q, unit_price: products.find(p => p.id === Number(id)).price
+  }));
+  const { error: e2 } = await db.from('shop_order_items').insert(items);
+  if (e2) { msg.className = 'msg err'; msg.textContent = '주문 상세 저장 실패: ' + e2.message; $('#btn-order').disabled = false; return; }
+  cart = {}; renderCart();
+  msg.className = 'msg ok'; msg.textContent = '주문이 접수되었습니다. (주문번호 ' + order.id + ')';
+  loadOrders();
+};
+
+/* ---------- 내 주문 보기 ---------- */
+async function loadOrders(){
+  if (!user) { $('#orders').innerHTML = '<p class="muted">로그인하면 주문 내역이 보입니다.</p>'; return; }
+  const { data, error } = await db.from('shop_orders')
+    .select('id, total, status, created_at, shop_order_items(qty, unit_price, shop_products(name))')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false });
+  if (error) { $('#orders').innerHTML = '<p class="msg err">' + esc(error.message) + '</p>'; return; }
+  $('#orders').innerHTML = data.length ? data.map(o => `
+    <div class="order">
+      <div class="head"><span>#${o.id} · ${won(o.total)}</span><span class="badge ${o.status === '결제완료' ? 'o' : ''}">${esc(o.status)}</span></div>
+      <div class="muted">${new Date(o.created_at).toLocaleString('ko-KR')}</div>
+      <div>${o.shop_order_items.map(i => esc(i.shop_products?.name) + ' × ' + i.qty).join(', ')}</div>
+    </div>`).join('') : '<p class="muted">아직 주문이 없습니다.</p>';
+}
+
+/* ---------- 회원: Supabase Auth ---------- */
+async function loadProfile(){
+  profile = null;
+  if (user) {
+    const { data } = await db.from('shop_profiles').select('*').eq('id', user.id).single();
+    profile = data;
+  }
+  $('#who').innerHTML = user
+    ? `${esc(profile?.name || user.email)} 님 <span class="badge o">${esc(profile?.grade || '')}</span> ${profile ? Number(profile.points).toLocaleString('ko-KR') + 'P' : ''}`
+    : '';
+  $('#btn-login').style.display = user ? 'none' : '';
+  $('#btn-logout').style.display = user ? '' : 'none';
+  $('#btn-admin').style.display = profile?.role === 'admin' ? '' : 'none';
+}
+
+let mode = 'login';
+function openAuth(m){ setMode(m); $('#auth-msg').textContent = ''; $('#auth-modal').classList.add('open'); $('#f-email').focus(); }
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  $('#signup-fields').style.display = m === 'signup' ? '' : 'none';
+  $('#auth-submit').textContent = m === 'signup' ? '회원가입' : '로그인';
+  $('#f-pw').autocomplete = m === 'signup' ? 'new-password' : 'current-password';
+}
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+$('#btn-login').onclick = () => openAuth('login');
+$('#auth-close').onclick = () => $('#auth-modal').classList.remove('open');
+$('#auth-modal').onclick = e => { if (e.target.id === 'auth-modal') $('#auth-modal').classList.remove('open'); };
+
+$('#auth-form').onsubmit = async e => {
+  e.preventDefault();
+  const email = $('#f-email').value.trim(), password = $('#f-pw').value;
+  const msg = $('#auth-msg'); msg.className = 'msg'; msg.textContent = '처리 중…';
+  let res;
+  if (mode === 'signup') {
+    // 가입할 때 이름 · 연락처를 함께 보낸다 → DB 트리거가 shop_profiles 에 한 줄을 만든다
+    res = await db.auth.signUp({ email, password,
+      options: { data: { name: $('#f-name').value.trim(), phone: $('#f-phone').value.trim() } } });
+  } else {
+    res = await db.auth.signInWithPassword({ email, password });
+  }
+  if (res.error) { msg.className = 'msg err'; msg.textContent = res.error.message; return; }
+  if (mode === 'signup' && !res.data.session) {
+    msg.className = 'msg ok'; msg.textContent = '가입되었습니다. 이메일 확인 후 로그인하세요. (실습 중이면 Supabase 에서 Confirm email 을 끄세요)'; return;
+  }
+  msg.className = 'msg ok'; msg.textContent = '완료!';
+  $('#auth-modal').classList.remove('open');
+  toast(mode === 'signup' ? '가입을 환영합니다! 3,000 포인트가 지급되었습니다' : '로그인되었습니다');
+};
+$('#btn-logout').onclick = async () => { await db.auth.signOut(); toast('로그아웃되었습니다'); };
+
+// 로그인 상태가 바뀔 때마다 화면을 다시 그린다
+db.auth.onAuthStateChange((_event, session) => {
+  user = session?.user ?? null;
+  setTimeout(() => { loadProfile(); loadOrders(); }, 0);
+});
+
+loadProducts();
+</script>
+</body>
+</html>
