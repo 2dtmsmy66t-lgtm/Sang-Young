@@ -127,7 +127,7 @@ section{padding:100px 0}
 .modal-close{position:absolute;top:12px;right:12px;width:40px;height:40px;background:var(--bg);border:none;font-size:1.3rem;color:var(--navy)}
 .modal-close:hover{background:var(--orange);color:#fff}
 .modal-inner{display:grid;grid-template-columns:240px 1fr}
-.modal-inner img{width:100%;height:100%;object-fit:contain;background:var(--bg);padding:20px}
+.modal-inner img{width:100%;height:100%;object-fit:cover;background:var(--bg)}
 .modal-info{padding:32px 28px}
 .modal-info h3{font-size:1.4rem;margin:4px 0 10px}
 .modal-info > p{color:var(--steel);margin-bottom:18px;font-size:.95rem}
@@ -303,10 +303,10 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
 
 <!-- 1. HERO -->
 <section class="hero" id="home" style="padding:0" aria-roledescription="carousel" aria-label="메인 이미지">
-  <div class="slide active"><img src="img/hero-factory.svg" alt="절곡기와 금속 판재가 놓인 판금 가공 공장 내부 일러스트"></div>
-  <div class="slide"><img src="img/hero-duct.svg" alt="천장에 설치된 사각 덕트와 원형 스파이럴 덕트 설비 일러스트"></div>
-  <div class="slide"><img src="img/hero-construction.svg" alt="타워크레인과 철골 구조물이 있는 건축 현장 일러스트"></div>
-  <div class="slide"><img src="img/hero-products.svg" alt="출고를 앞두고 적재된 원형·사각 덕트 완성품 일러스트"></div>
+  <div class="slide active"><img src="https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-factory.svg'" alt="절곡기와 금속 판재가 놓인 판금 가공 공장 내부 일러스트"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1708705261211-b2a244a811dc?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-duct.svg'" alt="천장에 설치된 사각 덕트와 원형 스파이럴 덕트 설비 일러스트"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-construction.svg'" alt="타워크레인과 철골 구조물이 있는 건축 현장 일러스트"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1701788607416-f1b5dd5a09ec?w=1600&q=80&auto=format&fit=crop" onerror="this.onerror=null;this.src='img/hero-products.svg'" alt="출고를 앞두고 적재된 원형·사각 덕트 완성품 일러스트"></div>
 
   <div class="hero-content">
     <div class="container">
@@ -600,23 +600,23 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
   const P = '[입력 필요]';
   const products = {
     duct: [
-      { id:'rect', name:'사각 덕트', img:'p-rect-duct.svg', desc:'공조·환기 설비의 주 배관으로 쓰이는 사각 단면 덕트입니다.',
+      { id:'rect', name:'사각 덕트', img:'p-rect-duct.svg', photo:'https://images.unsplash.com/photo-1697982947220-01b97bdec381?w=800&q=80&auto=format&fit=crop', desc:'공조·환기 설비의 주 배관으로 쓰이는 사각 단면 덕트입니다.',
         spec:{ 재질:`[재질 입력 — 예: 아연도강판]`, 두께:'[두께 입력]', 규격:'[규격 입력] / 도면 맞춤 제작', 용도:'공조, 급·배기 설비' } },
-      { id:'spiral', name:'원형 스파이럴 덕트', img:'p-spiral-duct.svg', desc:'나선형 접합으로 강도를 높인 원형 덕트입니다.',
+      { id:'spiral', name:'원형 스파이럴 덕트', img:'p-spiral-duct.svg', photo:'https://images.unsplash.com/photo-1574334292321-4844f63aefef?w=800&q=80&auto=format&fit=crop', desc:'나선형 접합으로 강도를 높인 원형 덕트입니다.',
         spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[지름 범위 입력]', 용도:'환기, 배기 설비' } },
-      { id:'fitting', name:'엘보·티 피팅', img:'p-fitting.svg', desc:'덕트의 방향 전환과 분기에 쓰이는 연결 부속입니다.',
+      { id:'fitting', name:'엘보·티 피팅', img:'p-fitting.svg', photo:'https://images.unsplash.com/photo-1615309662243-70f6df917b59?w=800&q=80&auto=format&fit=crop', desc:'덕트의 방향 전환과 분기에 쓰이는 연결 부속입니다.',
         spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력] / 도면 맞춤 제작', 용도:'덕트 방향 전환·분기' } },
-      { id:'damper', name:'댐퍼', img:'p-damper.svg', desc:'덕트 내부의 풍량을 조절하거나 차단하는 부품입니다.',
+      { id:'damper', name:'댐퍼', img:'p-damper.svg', photo:'https://images.unsplash.com/photo-1558358235-a0a93f68a52c?w=800&q=80&auto=format&fit=crop', desc:'덕트 내부의 풍량을 조절하거나 차단하는 부품입니다.',
         spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력]', 용도:'풍량 조절·차단' } }
     ],
     build: [
-      { id:'panel', name:'금속 판넬', img:'p-panel.svg', desc:'건물 외장·내장 마감에 쓰이는 금속 판넬입니다.',
+      { id:'panel', name:'금속 판넬', img:'p-panel.svg', photo:'https://images.unsplash.com/photo-1691766248898-0934c00ea187?w=800&q=80&auto=format&fit=crop', desc:'건물 외장·내장 마감에 쓰이는 금속 판넬입니다.',
         spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력]', 용도:'외벽·내벽 마감' } },
-      { id:'flashing', name:'후레싱', img:'p-flashing.svg', desc:'지붕·벽체의 이음부를 덮어 마감하는 절곡 부재입니다.',
+      { id:'flashing', name:'후레싱', img:'p-flashing.svg', photo:'https://images.unsplash.com/photo-1673645652350-6a4c31c1c78f?w=800&q=80&auto=format&fit=crop', desc:'지붕·벽체의 이음부를 덮어 마감하는 절곡 부재입니다.',
         spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력] / 현장 맞춤 절곡', 용도:'지붕·벽체 이음부 마감' } },
-      { id:'bracket', name:'철골 브래킷', img:'p-bracket.svg', desc:'구조물과 설비를 고정하는 금속 브래킷입니다.',
+      { id:'bracket', name:'철골 브래킷', img:'p-bracket.svg', photo:'https://images.unsplash.com/photo-1680052809761-b2a1192f35fd?w=800&q=80&auto=format&fit=crop', desc:'구조물과 설비를 고정하는 금속 브래킷입니다.',
         spec:{ 재질:'[재질 입력]', 두께:'[두께 입력]', 규격:'[규격 입력]', 용도:'구조물·설비 고정' } },
-      { id:'custom', name:'주문 제작 판금품', img:'p-custom.svg', desc:'도면에 맞춰 절단·절곡·용접으로 제작하는 맞춤 공작물입니다.',
+      { id:'custom', name:'주문 제작 판금품', img:'p-custom.svg', photo:'https://images.unsplash.com/photo-1593106410288-caf65eca7c9d?w=800&q=80&auto=format&fit=crop', desc:'도면에 맞춰 절단·절곡·용접으로 제작하는 맞춤 공작물입니다.',
         spec:{ 재질:'도면 지정 재질', 두께:'도면 지정', 규격:'도면 기준 제작', 용도:'현장별 맞춤 구조물' } }
     ]
   };
@@ -650,6 +650,29 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
 
   /* ---------- 제품 카드 ---------- */
   const select = $('#f-product');
+
+  // [12주차] DB 연동: 웹 서버(/api/products)에서 제품 목록을 받아 온다.
+  // 서버가 없는 곳(GitHub Pages)에서는 실패하므로, 위의 products 데이터로 대신 그린다.
+  fetch('/api/products')
+    .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
+    .then(rows => renderProducts(rowsToProducts(rows)))
+    .catch(() => renderProducts(products));
+
+  // DB 행(rows) → 화면용 { duct:[...], build:[...] } 모양으로 변환
+  function rowsToProducts(rows){
+    const v = x => x ?? P;   // DB의 NULL은 '[입력 필요]'로 표시
+    const out = { duct: [], build: [] };
+    rows.forEach(r => {
+      const cat = r.category === '덕트' ? 'duct' : 'build';
+      out[cat].push({
+        id: r.prod_id, name: r.name, img: r.img, photo: r.photo, desc: v(r.description),
+        spec: { 재질: v(r.material), 두께: v(r.thickness), 규격: v(r.size_spec), 용도: v(r.usage_desc) }
+      });
+    });
+    return out;
+  }
+
+  function renderProducts(products){
   Object.entries(products).forEach(([cat, list]) => {
     const panel = $('#panel-' + cat);
     const og = document.createElement('optgroup');
@@ -657,7 +680,7 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
     list.forEach(p => {
       const card = document.createElement('button');
       card.className = 'card';
-      card.innerHTML = `<img src="img/${p.img}" alt="${p.name} 아이콘">
+      card.innerHTML = `<img src="${p.photo || 'img/' + p.img}" alt="${p.name} 사진" onerror="this.onerror=null;this.src='img/${p.img}'">
         <div class="card-body"><span class="card-cat">${catName[cat]}</span>
         <h3>${p.name}</h3><p>${p.desc}</p><span class="more">상세 사양 보기 +</span></div>`;
       card.addEventListener('click', () => openModal(p, cat));
@@ -667,6 +690,7 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
     select.appendChild(og);
   });
   const etc = document.createElement('option'); etc.value='기타'; etc.textContent='기타 / 주문 제작 문의'; select.appendChild(etc);
+  }
 
   $$('.tab').forEach(t => t.addEventListener('click', () => {
     $$('.tab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
@@ -681,7 +705,8 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
   const ph = v => v.replace(/\[([^\]]+)\]/g, '<span class="ph">[$1]</span>');
   function openModal(p, cat){
     lastFocus = document.activeElement; currentProduct = p.name;
-    $('#m-img').src = 'img/' + p.img; $('#m-img').alt = p.name + ' 아이콘';
+    $('#m-img').onerror = function(){ this.onerror = null; this.src = 'img/' + p.img; };
+    $('#m-img').src = p.photo || ('img/' + p.img); $('#m-img').alt = p.name + ' 사진';
     $('#m-cat').textContent = catName[cat];
     $('#m-title').textContent = p.name;
     $('#m-desc').textContent = p.desc;
@@ -698,13 +723,15 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
   $('#m-quote').addEventListener('click', () => { select.value = currentProduct; closeModal(); });
 
-  /* ---------- 실적 (자리표시자) ---------- */
-  const works = [
+  /* ---------- 실적 ---------- */
+  // [12주차] DB 연동: /api/works 에서 실적을 받아 온다. 서버가 없으면(GitHub Pages) 자리표시자를 보여 준다.
+  const placeholderWorks = [
     { tag:'덕트', o:false }, { tag:'건축자재', o:true }, { tag:'덕트', o:false },
     { tag:'주문제작', o:true }, { tag:'덕트', o:false }, { tag:'건축자재', o:true }
   ];
-  $('#works-grid').innerHTML = works.map((w,i) => `
-    <article class="work reveal">
+  function renderPlaceholderWorks(){
+    $('#works-grid').innerHTML = placeholderWorks.map((w,i) => `
+    <article class="work">
       <div class="work-thumb">[현장 사진 ${i+1}]</div>
       <div class="work-body">
         <div class="work-meta"><span class="badge ${w.o?'o':''}">${w.tag}</span><span class="badge" style="background:var(--steel)"><span>[연도]</span></span></div>
@@ -712,6 +739,29 @@ footer{background:#121D2E;color:#8A96A3;padding:56px 0 32px;font-size:.88rem}
         <p><span class="ph">[발주처 / 납품 품목 입력]</span></p>
       </div>
     </article>`).join('');
+  }
+  function renderWorks(rows){
+    $('#works-grid').innerHTML = rows.map((w,i) => `
+    <article class="work">
+      <div class="work-thumb" style="padding:0;overflow:hidden">
+        <img src="${w.photo}" alt="${w.title} 현장 사진" style="width:100%;height:100%;object-fit:cover"
+             onerror="this.replaceWith(document.createTextNode('[현장 사진 ${i+1}]'))">
+      </div>
+      <div class="work-body">
+        <div class="work-meta">
+          <span class="badge ${w.category === '덕트' ? '' : 'o'}">${w.category}</span>
+          <span class="badge" style="background:var(--steel)">${w.year}</span>
+          ${w.is_sample ? '<span class="badge" style="background:#8A96A3">예시</span>' : ''}
+        </div>
+        <h3>${w.title}</h3>
+        <p>${w.client} / ${w.items}</p>
+      </div>
+    </article>`).join('');
+  }
+  fetch('/api/works')
+    .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
+    .then(rows => rows.length ? renderWorks(rows) : renderPlaceholderWorks())
+    .catch(renderPlaceholderWorks);
 
   /* ---------- 견적 폼 ---------- */
   const form = $('#quote-form');
